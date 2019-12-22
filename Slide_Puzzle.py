@@ -10,6 +10,8 @@ WINDOWHEIGHT = 480
 FPS = 30
 BLANK = None
 
+
+
 #                 R    G    B
 BLACK =         (  0,   0,   0)
 WHITE =         (255, 255, 255)
@@ -37,6 +39,7 @@ RIGHT = 'right'
 
 def main():
     global FPSCLOCK, DISPLAYSURF, BASICFONT, RESET_SURF, RESET_RECT, NEW_SURF, NEW_RECT, SOLVE_SURF, SOLVE_RECT
+    
 
     pygame.init()
     FPSCLOCK = pygame.time.Clock()
@@ -44,7 +47,7 @@ def main():
     pygame.display.set_caption('Slide Puzzle')
     BASICFONT = pygame.font.Font('Chocolate-Drink.ttf', BASICFONTSIZE)
 
-    # Store the option buttons and their rectangles in OPTIONS.ggg
+    # Store the option buttons and their rectangles in OPTIONS.
     RESET_SURF, RESET_RECT = makeText('Reset',    TEXTCOLOR, TILECOLOR, WINDOWWIDTH - 120, WINDOWHEIGHT - 90)
     NEW_SURF,   NEW_RECT   = makeText('New Game', TEXTCOLOR, TILECOLOR, WINDOWWIDTH - 120, WINDOWHEIGHT - 60)
     SOLVE_SURF, SOLVE_RECT = makeText('Solve',    TEXTCOLOR, TILECOLOR, WINDOWWIDTH - 120, WINDOWHEIGHT - 30)
@@ -53,9 +56,15 @@ def main():
     SOLVEDBOARD = getStartingBoard() # a solved board is the same as the board in a start state.
     allMoves = [] # list of moves made from the solved configuration
 
+    while True:
+        background=pygame.mixer.Sound('ChillingMusic.wav')
+        background.play()
+
     while True: # main game loop
+        
+        
         slideTo = None # the direction, if any, a tile should slide
-        msg = 'Click tile or press arrow keys to slide.' # contains the message to show in the upper left corner.
+        msg = 'Click tile or press arrow keys to slide. Number the tiles from 1 to 15, leaving an empty space at the end. Enjoy!' # contains the message to show in the upper left corner.
         if mainBoard == SOLVEDBOARD:
             msg = 'Solved!'
 
@@ -120,6 +129,7 @@ def checkForQuit():
     for event in pygame.event.get(KEYUP): # get all the KEYUP events
         if event.key == K_ESCAPE:
             terminate() # terminate if the KEYUP event was for the Esc key
+            background.stop()
         pygame.event.post(event) # put the other KEYUP event objects back
 
 
